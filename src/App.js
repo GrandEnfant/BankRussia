@@ -1,23 +1,47 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {useState} from "react";
+import {Period} from "./Period";
+import {Amount} from "./Amount";
 
 function App() {
+
+    const [type, setType] = useState({
+        type: 'unic',
+    });
+    const [sum, setSum] = useState({
+        sum: '',
+    });
+    const [period, setPeriod] = useState({
+        period: '1',
+    });
+
+    const setDepositType = (e) => {
+        setType({type: e.target.value});
+        console.log(type)
+    };
+
+    const setDepositSum = (e) => {
+        setSum({sum: e.target.value})
+        console.log(sum)
+    };
+    const setDepositPeriod = (e) => {
+        setPeriod({period: e.target.value})
+        console.log(period)
+    };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <label>Выберите тип вклада
+      <select name={"type"} onChange={setDepositType}>
+          <option value={"unic"}> Универсальный </option>
+          <option value={"standard"}> Стандартный </option>
+          <option value={"replenish"}> Пополняемый </option>
+      </select>
+        </label>
+
+        <Period type={type} onChange={setDepositPeriod}/>
+        <Amount period={period} onChange={setDepositSum}/>
     </div>
   );
 }
