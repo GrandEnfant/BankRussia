@@ -1,39 +1,54 @@
-export const Amount = (period, onChange) => {
+import React, {useEffect, useState} from "react";
+import {PDFDownloadLink} from "@react-pdf/renderer";
+import {MyDocument} from "./DocumentPDF";
 
 
-const getSum = (period) => {
-        switch (period) {
-            case '1':
-            case '2':
-            case '7':
-            case '14':
-            case '21':
-               return <select name={"sum"} onChange={onChange}>
-            <option value={"1000000"}> 1млн </option>
-            <option value={"100000000"}> 100млн </option>
-            <option value={"500000000"}> 500млн </option>
-        </select>;
-    break;
-            case '31':
-            case '91':
-                return <select name={"sum"} onChange={onChange}>
-            <option value={"500000"}> 500тыс </option>
-            <option value={"10000000"}> 10млн </option>
-            <option value={"50000000"}> 50млн </option>
-        </select>;
-    break;
-            // case '91':
-            case '121':
-                return <select name={"sum"} onChange={onChange}>
-                    <option value={"50000000"}> 50млн </option>
-                </select>;
-            break;
-            default: return <p> Ахахазаазаза лох </p>
+export const Amount = ({dataPeriod, typeDeposit}) => {
+    const [sum, setSum] = useState(0);
+    const [rate, setRate] = useState(0);
+    const [profit, setProfit] = useState(0);
+
+    const searchRate = () => {
+        for (let i = 0; i < dataPeriod.length; i++) {
+            let summsAndRate = dataPeriod[i];
+            if (+sum >= summsAndRate.summ_from) {
+                setRate(summsAndRate.rate);
+                calculateProfit()
+            } else {
+                break;
+            }
+        }
     }
-}
 
-return(
-<>
-    {getSum(period.period.period)}
-</>
-)}
+    const calculateProfit = () => {
+        const result = (sum / 100) * rate;
+        setProfit(result);
+    }
+
+    useEffect(() => {
+        searchRate();
+    }, [sum])
+
+    return (
+        <>
+            <p>Сумма</p>
+            <input value={sum} type={"number"} onChange={(e) => {
+                setSum(e.target.value);
+            }}/>
+            <p>Ваша ставка {rate}</p>
+            <p>Ваш доход {profit} </p>
+            <PDFDownloadLink
+                document={<MyDocument typeDeposit={typeDeposit}
+                                      profit={profit}
+                                      rate={rate}
+                                      sum={sum}
+                                      dataPeriod={dataPeriod}/>}
+                fileName="result.pdf"
+            >
+                {({loading}) =>
+                    loading ? "Loading document..." : "Download Pdf"
+                }
+            </PDFDownloadLink>
+        </>
+    )
+}

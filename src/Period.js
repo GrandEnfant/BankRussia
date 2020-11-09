@@ -1,24 +1,39 @@
-export const Period = ({type, onChange}) => {
+import {useState} from "react";
+import {Amount} from "./Amount";
+
+export const Period = ({data, typeDeposit}) => {
+
+   const [paramPeriod, setParamPeriod] = useState(data.deposits[0].param);
+   const [period, setPeriod] = useState("");
+   let dataPeriod;
+   const setDataPeriod = () => {
+       for (let i = 0; i < data.deposits.length; i++) {
+           if (data.deposits[i].code === typeDeposit) {
+               dataPeriod = data.deposits[i].param;
+               break
+           }
+       }
+   }
+    setDataPeriod();
+
+    const setDepositPeriod = (e) => {
+        let targetValue = e.target.value;
+        let summsAndRate;
+        for(let i = 0; i < dataPeriod.length; i++) {
+            if (+targetValue >= +dataPeriod[i].period_from) {
+                summsAndRate = dataPeriod[i].summs_and_rate;
+            } else {
+                break;
+            }
+        }
+        setPeriod(targetValue);
+        setParamPeriod(summsAndRate);
+    };
 
     return (
         <div>
-        {(type.type=== 'unic' || type.type === 'standard') ? <label>Выберите период вклада
-            <select name={"period"} onChange={onChange}>
-                <option value={"1"}> 1</option>
-                <option value={"2"}> 2</option>
-                <option value={"7"}> 7</option>
-                <option value={"14"}> 14</option>
-                <option value={"21"}> 21</option>
-                <option value={"31"}> 31</option>
-                <option value={"91"}> 91</option>
-            </select>
-        </label> :
-        <label>Выберите период вклада
-            <select name={"period"} onChange={onChange}>
-                <option value={"91"}> 91</option>
-                <option value={"121"}> 121</option>
-            </select>
-        </label>
-}
+            <p>Введите период</p>
+            <input type={'number'} value={period} onChange={(e) => setDepositPeriod(e)} />
+            <Amount typeDeposit={typeDeposit} dataPeriod={paramPeriod} period={period}/>
         </div>)
 }
