@@ -1,5 +1,7 @@
 import {useState} from "react";
 import {Amount} from "./Amount";
+import {depositePeriod} from "./redux/reducers/depositeType";
+
 
 export const Period = ({data, typeDeposit}) => {
 
@@ -26,7 +28,7 @@ export const Period = ({data, typeDeposit}) => {
                 break;
             }
         }
-        setPeriod(targetValue);
+        depositePeriod(targetValue)
         setParamPeriod(summsAndRate);
     };
 

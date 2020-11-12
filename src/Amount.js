@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {PDFDownloadLink} from "@react-pdf/renderer";
-import {MyDocument} from "./DocumentPDF";
+// import {PDFDownloadLink} from "@react-pdf/renderer";
+// import {MyDocument} from "./DocumentPDF";
 
 
 export const Amount = ({dataPeriod, typeDeposit}) => {
@@ -13,7 +13,7 @@ export const Amount = ({dataPeriod, typeDeposit}) => {
             let summsAndRate = dataPeriod[i];
             if (+sum >= summsAndRate.summ_from) {
                 setRate(summsAndRate.rate);
-                calculateProfit()
+                calculateProfit();
             } else {
                 break;
             }
@@ -37,18 +37,18 @@ export const Amount = ({dataPeriod, typeDeposit}) => {
             }}/>
             <p>Ваша ставка {rate}</p>
             <p>Ваш доход {profit} </p>
-            <PDFDownloadLink
-                document={<MyDocument typeDeposit={typeDeposit}
-                                      profit={profit}
-                                      rate={rate}
-                                      sum={sum}
-                                      dataPeriod={dataPeriod}/>}
-                fileName="result.pdf"
-            >
-                {({loading}) =>
-                    loading ? "Loading document..." : "Download Pdf"
-                }
-            </PDFDownloadLink>
+            {/*<PDFDownloadLink*/}
+            {/*    document={<MyDocument typeDeposit={typeDeposit}*/}
+            {/*                          profit={profit}*/}
+            {/*                          rate={rate}*/}
+            {/*                          sum={sum}*/}
+            {/*                          dataPeriod={dataPeriod}/>}*/}
+            {/*    fileName="result.pdf"*/}
+            {/*>*/}
+            {/*    {({loading}) =>*/}
+            {/*        loading ? "Loading document..." : "Download Pdf"*/}
+            {/*    }*/}
+            {/*</PDFDownloadLink>*/}
         </>
     )
 }
