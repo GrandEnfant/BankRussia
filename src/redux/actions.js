@@ -13,7 +13,7 @@ export function changePeriod(period) {
         payload: period
         }
 }
-export function changeDataDeposite(data) {
+export function changeDataDeposit(data) {
     return {
         type: Types.CHANGE_DATA,
         payload: data
@@ -25,10 +25,10 @@ export function changeSum(sum) {
         payload: sum
         }
 }
-export function changeProfit(profit) {
+export function changeProfit(profit, sum) {
     return {
         type: Types.CHANGE_PROFIT,
-        payload: profit
+        payload: {rate: profit, sum: sum}
         }
 }
 

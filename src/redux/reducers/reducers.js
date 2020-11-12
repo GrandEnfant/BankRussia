@@ -1,9 +1,8 @@
-// import {fieldType, PayloadFieldType, Types} from "../types";
 import {Types} from "../types";
 import depcalc from '../../depcalc.json';
 
 const initialStateType = {
-    typeDeposite: 'unic'
+    typeDeposit: 'unic'
 };
 const initialStateSum = {
     sum: 0
@@ -11,24 +10,24 @@ const initialStateSum = {
 const initialStatePeriod = {
     period: []
 };
-const initialStateDataDeposite = {
-    dataDeposite: depcalc
+const initialStateDataDeposit = {
+    dataDeposit: depcalc
 };
 const initialStateProfit = {
     profit: 0
 };
 
-export const depositeType = (state = initialStateType, action) => {
+export const depositType = (state = initialStateType, action) => {
     switch (action.type) {
         case Types.CHANGE_TYPE: {
             let copiedState = state;
-            copiedState.typeDeposite = action.payload;
+            copiedState.typeDeposit = action.payload;
             return {...copiedState};
         }
         default: return state;
     }
 };
-export const depositeSum = (state = initialStateSum, action) => {
+export const depositSum = (state = initialStateSum, action) => {
     switch (action.type) {
         case Types.CHANGE_SUM: {
             let copiedState = state;
@@ -39,18 +38,18 @@ export const depositeSum = (state = initialStateSum, action) => {
     }
 };
 
-export const depositeProfit = (state = initialStateProfit, action) => {
+export const depositProfit = (state = initialStateProfit, action) => {
     switch (action.type) {
         case Types.CHANGE_PROFIT: {
             let copiedState = state;
-            copiedState.profit = action.payload;
+            copiedState.profit = (action.payload.sum / 100) * action.payload.rate;
             return {...copiedState};
         }
         default: return state;
     }
 };
 
-export const depositePeriod = (state = initialStatePeriod, action) => {
+export const depositPeriod = (state = initialStatePeriod, action) => {
     switch (action.type) {
         case Types.CHANGE_PERIOD: {
             let copiedState = state;
@@ -61,9 +60,9 @@ export const depositePeriod = (state = initialStatePeriod, action) => {
     }
 };
 
-export const dataDeposite = (state = initialStateDataDeposite, action) => {
+export const dataDeposit = (state = initialStateDataDeposit, action) => {
     switch (action.type) {
-        case Types.CHANGE_PERIOD: {
+        case Types.CHANGE_DATA: {
             return {...state};
         }
         default: return state;

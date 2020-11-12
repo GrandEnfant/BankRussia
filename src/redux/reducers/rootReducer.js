@@ -1,11 +1,11 @@
 import {combineReducers} from "redux";
-import {dataDeposite, depositePeriod, depositeProfit, depositeSum, depositeType} from "./depositeType";
+import {dataDeposit, depositPeriod, depositProfit, depositSum, depositType} from "./reducers";
 
 
 export const rootReducer = combineReducers({
-    typeDeposite: depositeType,
-    period: depositePeriod,
-    dataDeposite: dataDeposite,
-    sum: depositeSum,
-    profit: depositeProfit
+    typeDeposit: depositType,
+    period: depositPeriod,
+    dataDeposit: dataDeposit,
+    sum: depositSum,
+    profit: depositProfit
 });
