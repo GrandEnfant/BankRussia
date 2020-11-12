@@ -4,6 +4,8 @@ import {Period} from "./Period";
 import {changeDataDeposite, changePeriod, changeProfit, changeSum, changeType} from "./redux/actions";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import {PDFDownloadLink} from "@react-pdf/renderer";
+import {MyDocument} from "./DocumentPDF";
 
 function App({typeDeposite, changeType, changePeriod, period, dataDeposite, sum, changeSum, profit, changeProfit}) {
 
@@ -42,7 +44,6 @@ function App({typeDeposite, changeType, changePeriod, period, dataDeposite, sum,
         setParamPeriod(dataPeriod);
     };
 
-
     const searchRate = () => {
         for (let i = 0; i < paramPeriod.length; i++) {
             if (++sum.sum >= +period[i].summ_from) {
@@ -69,6 +70,18 @@ function App({typeDeposite, changeType, changePeriod, period, dataDeposite, sum,
             <input value={sum.sum} type={"number"} onChange={setDepositSum}/>
             <p>Ваша ставка {rate}</p>
             <p>Ваш доход {profit.profit}</p>
+            <PDFDownloadLink
+                document={<MyDocument typeDeposite={typeDeposite}
+                                      profit={profit.profit}
+                                      rate={rate}
+                                      sum={sum.sum}
+                                     />}
+                fileName="result.pdf"
+            >
+                {({loading}) =>
+                    loading ? "Loading document..." : "Download Pdf"
+                }
+            </PDFDownloadLink>
         </div>
     );
 }
