@@ -2,18 +2,14 @@ import {Types} from "./types";
 
 
 export function changeType(valueType) {
-    console.log(valueType);
-    console.log('action up');
     return {
         type: Types.CHANGE_TYPE,
         payload: valueType
         }
 }
 export function changePeriod(period) {
-    console.log(period);
-    console.log('action up');
     return {
-        type: Types.CHANGE_TYPE,
+        type: Types.CHANGE_PERIOD,
         payload: period
         }
 }
@@ -29,3 +25,11 @@ export function changeSum(sum) {
         payload: sum
         }
 }
+export function changeProfit(profit) {
+    return {
+        type: Types.CHANGE_PROFIT,
+        payload: profit
+        }
+}
+
+
